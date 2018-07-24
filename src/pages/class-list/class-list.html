@@ -1,0 +1,40 @@
+<!--
+  Generated template for the ClassListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+   
+  <ion-navbar>
+      <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="big">
+    <ion-fab right bottom> <button ion-fab mini ><ion-icon name="add" (click) ="add()"></ion-icon></button>
+    </ion-fab>
+   
+  <div class="wrap">
+
+      <ion-card-content>
+          <ion-list *ngFor="let v of arr; let u = index">
+              <ion-item>
+               
+                <h2>{{v.name}} {{v.surname}}</h2>
+                <button ion-button  item-right clear class="btn" (click)="view(u)">view</button>
+              </ion-item>
+            </ion-list>
+      </ion-card-content>
+
+  </div>
+
+ 
+</ion-content>

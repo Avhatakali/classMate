@@ -1,0 +1,32 @@
+page-home {
+   text-align: center;
+   align-items: center;
+
+    .bigwrap{
+        margin: 0;
+        padding: 0;
+
+        margin-top: 50px;
+       
+    }
+
+    .wrap{
+        padding: 10px; 
+        margin-top: 30px;
+        text-align: center;
+
+    }
+    img{
+        width: 200px;
+        text-align: center;
+    }
+
+    p{
+        color: rgb(75, 142, 255);
+        font-size: 24px;
+        font-style: italic;
+    }
+    p:hover{
+        background-color: aliceblue;
+    }
+}
