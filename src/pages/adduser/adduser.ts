@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Alert, AlertController } from 'ion
 import { classMates } from '../../app/classMates';
 import arrClass from '../../app/classArray';
 import { ClassListPage } from '../class-list/class-list';
-import { empty } from '../../../node_modules/rxjs/Observer';
+
 
 /**
  * Generated class for the AdduserPage page.
@@ -30,6 +30,7 @@ export class AdduserPage {
 
           let obj = new classMates(name,surname,id,gender,email,address);
 
+       
 
           if(arrClass != null){
              const prompt = this.alertCtrl.create({
@@ -50,7 +51,20 @@ export class AdduserPage {
               ]
             });
             prompt.present();
-          } else if(name == " " || surname == " " || id == " "|| gender == " " || email == " " || address == " " ){
+
+
+          } else 
+          
+          for(let index = 0; index < arrClass.length; index++){
+            var name = arrClass[index].name;
+            var surname = arrClass[index].surname;
+            var gender = arrClass[index].gender;
+            var email = arrClass[index].email;
+            var id =  arrClass[index].id;
+            var address =  arrClass[index].address;
+        }
+          
+          if(name == ' ' || surname == " " || id == " "|| gender == " " || email == " " || address == " " ){
             const prompt = this.alertCtrl.create({
               title: 'No value',
               message: " please insert member's details !",
