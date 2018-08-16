@@ -10,6 +10,7 @@
   <h2>Add Data</h2>
   <form (ngSubmit)="saveData()">
     <ion-item>
+<<<<<<< HEAD
       <ion-label>Date</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="data.date" name="date" required=""></ion-datetime>
     </ion-item>
@@ -31,3 +32,35 @@
     <button ion-button type="submit" block>Save Data</button>
   </form>
 </ion-content>
+=======
+        <ion-label floating>Name :</ion-label>
+        <ion-input type="text" #name></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>Surname :</ion-label>
+        <ion-input type="text" #surname></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label floating>ID :</ion-label>
+          <ion-input type="text" #id></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label floating>Gender :</ion-label>
+          <ion-input type="text" #gender></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Email :</ion-label>
+            <ion-input type="text" #email></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label floating>Adress :</ion-label>
+            <ion-input type="text" #address></ion-input>
+          </ion-item>
+    </div>
+          <button ion-button full block round (click)="addUser(name.value,surname.value,id.value,gender.value,email.value,address.value)">Add Class Mates</button>
+</ion-content>
+>>>>>>> 3be6f26f498537a48c25398ee9012ed64e7fd8e0
