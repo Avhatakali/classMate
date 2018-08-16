@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import arrClass from '../../app/classArray';
 import arrFind from '../../app/arrayLocate';
 import { classMates } from '../../app/classMates';
-import { ClassListPage } from '../class-list/class-list';
-import { HomePage } from '../home/home';
+
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
 
 /**
  * Generated class for the ProfileViewPage page.
@@ -20,70 +21,77 @@ import { HomePage } from '../home/home';
 })
 export class ProfileViewPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
-  }
+data = { rowid:0, date:"", type:"", description:"", amount:0 };
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileViewPage');
-  }
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams, 
+     public alertCtrl: AlertController,
+     private sqlite: SQLite,
+    private toast: Toast) {  this.getCurrentData(navParams.get("rowid"));}
 
-  num = arrFind[0];
-
-  clName = arrClass[this.num].name;
-  clSurname = arrClass[this.num].surname;
-  clId = arrClass[this.num].id;
-  clgender = arrClass[this.num].gender;
-  clemail = arrClass[this.num].email;
-  claddress = arrClass[this.num].address;
-
-  updateClass(name,surname,id,gender,email,address)
-  {
-
-    let objct= new classMates(name,surname,id,gender,email,address);
-
-    arrClass.splice(this.num,1,objct);
-    console.log(objct);
-    const prompt = this.alertCtrl.create({
-      title: 'update',
-      message: " member details have being updated ",
-      buttons: [
-        {
-          text: 'ok',
-          handler: data => {
-            console.log('Saved clicked');
-            this.navCtrl.setRoot(ClassListPage);
+getCurrentData(rowid) {
+    this.sqlite.create({
+      name: 'ionicdb.db',
+      location: 'default'
+    }).then((db: SQLiteObject) => {
+      db.executeSql('SELECT * FROM expense WHERE rowid=?', [rowid])
+        .then(res => {
+          if(res.rows.length > 0) {
+            this.data.rowid = res.rows.item(0).rowid;
+            this.data.date = res.rows.item(0).date;
+            this.data.type = res.rows.item(0).type;
+            this.data.description = res.rows.item(0).description;
+            this.data.amount = res.rows.item(0).amount;
           }
+        })
+        .catch(e => {
+          console.log(e);
+          this.toast.show(e, '5000', 'center').subscribe(
+            toast => {
+              console.log(toast);
+            }
+          );
+        });
+    }).catch(e => {
+      console.log(e);
+      this.toast.show(e, '5000', 'center').subscribe(
+        toast => {
+          console.log(toast);
         }
-      ]
+      );
     });
-    prompt.present();  
   }
 
-  delete(){
-    const confirm = this.alertCtrl.create({
-      title: 'Delete',
-      message: ' are you sure you want to delete class mate ?',
-      buttons: [
-        {
-          text: 'Disagree',
-          handler: () => {
-            console.log('Disagree clicked');
-            
-            this.navCtrl.push(ProfileViewPage);
-          }
-        },
-        {
-          text: 'Agree',
-          handler: () => {
-            console.log('Agree clicked');
-            arrClass.splice(arrFind[0],1);
-            console.log(arrClass); 
-
-           this.navCtrl.setRoot(ClassListPage);
-          }
+  updateData() {
+    this.sqlite.create({
+      name: 'ionicdb.db',
+      location: 'default'
+    }).then((db: SQLiteObject) => {
+      db.executeSql('UPDATE expense SET date=?,type=?,description=?,amount=? WHERE rowid=?',[this.data.date,this.data.type,this.data.description,this.data.amount,this.data.rowid])
+        .then(res => {
+          console.log(res);
+          this.toast.show('Data updated', '5000', 'center').subscribe(
+            toast => {
+              this.navCtrl.popToRoot();
+            }
+          );
+        })
+        .catch(e => {
+          console.log(e);
+          this.toast.show(e, '5000', 'center').subscribe(
+            toast => {
+              console.log(toast);
+            }
+          );
+        });
+    }).catch(e => {
+      console.log(e);
+      this.toast.show(e, '5000', 'center').subscribe(
+        toast => {
+          console.log(toast);
         }
-      ]
+      );
     });
-    confirm.present();    
   }
+  
 }

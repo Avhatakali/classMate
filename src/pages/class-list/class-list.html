@@ -1,32 +1,43 @@
-<!--
-  Generated template for the ClassListPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-   
   <ion-navbar>
-     <title>Class List</title>
+    <ion-title>
+      My Expense
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addData()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding class="big">
-   
-  <div class="wrap">
-
-      <ion-card-content>
-          <ion-list *ngFor="let v of arr; let u = index">
-              <ion-item>
-               
-                <h2>{{v.name}} {{v.surname}}</h2>
-                <button ion-button  item-right clear class="btn" (click)="view(u)">view</button>
-              </ion-item>
-            </ion-list>
-      </ion-card-content>
-      <button ion-button full round (click) ="add()" >Add students</button>
-  </div>
-  
+<ion-content padding>
+  <h2>Expense List</h2>
+  <ion-list>
+    <ion-item-sliding *ngFor="let expense of expenses; let i=index">
+      <ion-item nopadding>
+        <p>
+          <span>{{expense.date}}</span><br>
+          Type: {{expense.type}}<br>
+          {{expense.description}}
+        </p>
+        <h3 item-end>
+          Amount: ${{expense.amount}}
+        </h3>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary" (click)="editData(expense.rowid)">
+          <ion-icon name="paper"></ion-icon>
+        </button>
+        <button ion-button color="danger" (click)="deleteData(expense.rowid)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Balance: ${{balance}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

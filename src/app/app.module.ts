@@ -10,6 +10,8 @@ import { AdduserPage } from '../pages/adduser/adduser';
 import { ClassListPage } from '../pages/class-list/class-list';
 import { ProfileViewPage } from '../pages/profile-view/profile-view';
 
+import { SQLite } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ProfileViewPage } from '../pages/profile-view/profile-view';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SQLite,
+    Toast
   ]
 })
 export class AppModule {}
